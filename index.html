@@ -181,6 +181,10 @@
         .footer-alt-link:hover { color: var(--primary); }
         .footer-alt-link::after { content: '|'; color: var(--border); margin-left: 10px; }
         .footer-alt-link:last-child::after { display: none; }
+    
+        .header-telegram { display: flex; align-items: center; gap: 6px; background: #2AABEE; color: white; padding: 8px 16px; border-radius: 50px; font-size: 0.9rem; font-weight: 700; text-decoration: none; transition: 0.2s; }
+        .header-telegram:hover { background: #1c92d2; transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+        .back-to-top { position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; background: var(--text-main); color: white; border: none; display: flex; justify-content: center; align-items: center; box-shadow: var(--shadow-md); z-index: 99; transition: 0.3s; }
 
         @media (max-width: 768px) {
             .utility-bar { display: none; }

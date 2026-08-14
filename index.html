@@ -29,26 +29,81 @@
     <!-- 검색 엔진 로봇 설정 -->
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
-    <!-- Schema.org 구조화된 데이터 (JSON-LD) : 구글 봇이 사이트 성격을 완벽히 이해하도록 돕습니다 -->
+   <!-- 전문가용 통합 Schema.org 구조화된 데이터 (JSON-LD) -->
     <script type="application/ld+json">
-    [
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "에이스링크",
-        "alternateName": ["AceLink", "주소모음", "링크모음", "주소모아", "사이트모음", "최신주소"],
-        "url": "https://ace4555.top/",
-        "description": "막힘없는 최신주소, 유용한 사이트모음, 주소모아 서비스를 제공하는 최고의 링크모음 플랫폼",
-        "inLanguage": "ko"
-      },
-      {
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        "name": "카테고리별 인기 사이트모음 - 에이스링크",
-        "description": "웹툰, 토토/카지노, 성인, 쇼핑, 검증 등 10개 이상의 카테고리별 최신 링크모음입니다.",
-        "url": "https://ace4555.top/#all-links"
-      }
-    ]
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://ace4555.top/#website",
+          "url": "https://ace4555.top/",
+          "name": "에이스링크",
+          "alternateName": ["AceLink", "주소모음", "링크모음", "주소모아", "사이트모음", "최신주소", "에이스링크 최신주소"],
+          "description": "막힘없는 최신주소, 유용한 사이트모음, 주소모아 서비스를 제공하는 최고의 링크모음 플랫폼",
+          "publisher": {
+            "@id": "https://ace4555.top/#organization"
+          },
+          "inLanguage": "ko-KR"
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://ace4555.top/#organization",
+          "name": "에이스링크",
+          "url": "https://ace4555.top/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://ace4555.top/img/Gemini_Generated_Image_t5ozyct5ozyct5oz.png"
+          },
+          "sameAs": [
+            "https://t.me/ace4555",
+            "https://ace4555.top/pages/jusocon/",
+            "https://ace4555.top/pages/jusoart/",
+            "https://ace4555.top/pages/jusohub/",
+            "https://ace4555.top/pages/jusowhy/",
+            "https://ace4555.top/pages/yeogiyeo/",
+            "https://ace4555.top/pages/jusoking/",
+            "https://ace4555.top/pages/jusoworld/",
+            "https://ace4555.top/pages/jusomoa/"
+          ]
+        },
+        {
+          "@type": "ItemList",
+          "@id": "https://ace4555.top/#itemlist",
+          "name": "에이스링크 카테고리 순위",
+          "description": "에이스링크에서 제공하는 인기 사이트 카테고리 리스트입니다.",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "웹툰", "url": "https://ace4555.top/#category-cat-webtoon" },
+            { "@type": "ListItem", "position": 2, "name": "토토/카지노", "url": "https://ace4555.top/#category-cat-casino" },
+            { "@type": "ListItem", "position": 3, "name": "성인", "url": "https://ace4555.top/#category-cat-adult" },
+            { "@type": "ListItem", "position": 4, "name": "오피", "url": "https://ace4555.top/#category-cat-opi" },
+            { "@type": "ListItem", "position": 5, "name": "쇼핑", "url": "https://ace4555.top/#category-cat-shopping" }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://ace4555.top/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "에이스링크의 최신주소는 얼마나 자주 업데이트 되나요?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "에이스링크는 매일 실시간 검수를 통해 접속이 막힌 주소를 새로운 최신 주소로 신속하게 업데이트하여 사용자에게 막힘없는 우회 접속 환경을 제공합니다."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "에이스링크 이용 시 비용이 발생하나요?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "아닙니다. 에이스링크에서 제공하는 모든 주소모음, 링크모음 및 사이트 정보는 100% 무료로 회원가입 없이 이용하실 수 있습니다."
+              }
+            }
+          ]
+        }
+      ]
+    }
     </script>
     
     <!-- 폰트 적용 -->

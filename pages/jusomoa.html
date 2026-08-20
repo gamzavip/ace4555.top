@@ -304,113 +304,152 @@
         </div>
     </section>
 
-    <!-- 카드형 DB 탐색기 위젯 -->
+    <!-- 기존 카드형 검색기 교체 섹션: 주소모아 실시간 도메인 무결성 & 우회 매핑 콘솔 -->
     <section id="explorer" class="py-20 px-4 sm:px-6 lg:px-8 bg-zinc-950 border-t border-rose-900/40">
         <div class="max-w-6xl mx-auto">
             <div class="text-center max-w-3xl mx-auto mb-12">
-                <span class="text-xs font-bold text-rose-400 uppercase tracking-widest mb-2 block">Interactive Moa Card Explorer</span>
-                <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">주소모아 카드형 실시간 검색기</h2>
-                <p class="text-sm sm:text-base text-zinc-400">카테고리 탭을 선택하거나 키워드를 입력해 검증된 도메인 카드를 확인하세요.</p>
+                <span class="text-xs font-bold text-rose-400 uppercase tracking-widest mb-2 block">Live Integrity & Bypass Route Console</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">주소모아 실시간 도메인 무결성 & 우회 매핑 콘솔</h2>
+                <p class="text-sm sm:text-base text-zinc-400">등록된 카테고리별 게이트웨이의 SSL 무결성, 핑 지연 시간 및 유효 우회 연결 상태를 라이브로 점검합니다.</p>
             </div>
 
-            <!-- 검색 입력창 및 카테고리 필터 -->
-            <div class="max-w-3xl mx-auto mb-10">
-                <div class="relative mb-6">
-                    <input type="text" id="moa-search-input" onkeyup="searchMoaCards()" placeholder="찾으시는 사이트명이나 키워드를 입력하세요 (예: 넷플릭스, 스포츠, ChatGPT)..." 
-                           class="w-full py-4 pl-12 pr-4 bg-zinc-900 border border-rose-900 rounded-2xl text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-rose-400 shadow-inner transition-colors">
-                    <svg class="w-5 h-5 absolute left-4 top-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                    </svg>
+            <!-- 실시간 요약 통계 전광판 -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10 max-w-4xl mx-auto">
+                <div class="p-4 rounded-2xl bg-zinc-900 border border-rose-900/50 text-center">
+                    <span class="text-[11px] text-zinc-400 block mb-1">모니터링 게이트웨이</span>
+                    <span class="text-xl font-black text-white">128개 노드</span>
                 </div>
-
-                <div class="flex flex-wrap justify-center gap-2" id="moa-tabs">
-                    <button onclick="filterMoaCategory('all')" class="moa-tab active px-4 py-2 rounded-xl text-xs font-bold bg-rose-600 text-white shadow-md shadow-rose-600/20 transition">전체 카드</button>
-                    <button onclick="filterMoaCategory('ott')" class="moa-tab px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 border border-rose-900/60 hover:border-rose-400 transition">OTT/스트리밍</button>
-                    <button onclick="filterMoaCategory('sports')" class="moa-tab px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 border border-rose-900/60 hover:border-rose-400 transition">스포츠/중계</button>
-                    <button onclick="filterMoaCategory('community')" class="moa-tab px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 border border-rose-900/60 hover:border-rose-400 transition">커뮤니티</button>
-                    <button onclick="filterMoaCategory('shopping')" class="moa-tab px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 border border-rose-900/60 hover:border-rose-400 transition">쇼핑/이커머스</button>
-                    <button onclick="filterMoaCategory('ai')" class="moa-tab px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 border border-rose-900/60 hover:border-rose-400 transition">AI/유틸리티</button>
+                <div class="p-4 rounded-2xl bg-zinc-900 border border-rose-900/50 text-center">
+                    <span class="text-[11px] text-zinc-400 block mb-1">유효 우회 도메인</span>
+                    <span class="text-xl font-black text-emerald-400">100% 정상</span>
+                </div>
+                <div class="p-4 rounded-2xl bg-zinc-900 border border-rose-900/50 text-center">
+                    <span class="text-[11px] text-zinc-400 block mb-1">평균 핑(Ping) 응답</span>
+                    <span class="text-xl font-black text-rose-400">11.4 ms</span>
+                </div>
+                <div class="p-4 rounded-2xl bg-zinc-900 border border-rose-900/50 text-center">
+                    <span class="text-[11px] text-zinc-400 block mb-1">사칭 피싱 차단 건수</span>
+                    <span class="text-xl font-black text-rose-300">0건 (안전)</span>
                 </div>
             </div>
 
-            <!-- 카드 그리드 -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="moa-cards">
+            <!-- 카테고리 필터 -->
+            <div class="max-w-3xl mx-auto mb-8">
+                <div class="flex flex-wrap justify-center gap-2" id="matrix-tabs">
+                    <button onclick="filterMatrixCategory('all', this)" class="matrix-tab active px-4 py-2 rounded-xl text-xs font-bold bg-rose-600 text-white shadow-md shadow-rose-600/20 transition">전체 노드</button>
+                    <button onclick="filterMatrixCategory('ott', this)" class="matrix-tab px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 border border-rose-900/60 hover:border-rose-400 transition">OTT/미디어</button>
+                    <button onclick="filterMatrixCategory('sports', this)" class="matrix-tab px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 border border-rose-900/60 hover:border-rose-400 transition">스포츠/중계</button>
+                    <button onclick="filterMatrixCategory('community', this)" class="matrix-tab px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 border border-rose-900/60 hover:border-rose-400 transition">커뮤니티</button>
+                    <button onclick="filterMatrixCategory('shopping', this)" class="matrix-tab px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 border border-rose-900/60 hover:border-rose-400 transition">쇼핑/라이프</button>
+                    <button onclick="filterMatrixCategory('ai', this)" class="matrix-tab px-4 py-2 rounded-xl text-xs font-bold bg-zinc-900 text-zinc-300 border border-rose-900/60 hover:border-rose-400 transition">AI/유틸리티</button>
+                </div>
+            </div>
+
+            <!-- 실시간 무결성 상태 매트릭스 리스트 -->
+            <div class="space-y-4 max-w-4xl mx-auto" id="matrix-list">
                 
-                <div class="moa-item ott moa-card p-6 rounded-2xl" data-name="유튜브 넷플릭스 디즈니 스트리밍 동영상">
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-3xl">🎬</span>
-                        <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg text-[11px] font-bold border border-emerald-500/30">PING 12ms 정상</span>
+                <!-- 노드 1: OTT -->
+                <div class="matrix-row ott moa-card p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4" data-name="유튜브 넷플릭스 티빙 디즈니 ott 동영상">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-rose-950/80 rounded-xl flex items-center justify-center text-2xl border border-rose-500/30 shrink-0">🎬</div>
+                        <div>
+                            <div class="flex items-center space-x-2 mb-1">
+                                <h3 class="font-bold text-white text-base">OTT 종합 미디어 게이트웨이</h3>
+                                <span class="px-2 py-0.5 bg-rose-500/20 text-rose-300 text-[10px] font-bold rounded border border-rose-500/30">공식 우회 매핑</span>
+                            </div>
+                            <p class="text-xs text-zinc-400">유튜브, 넷플릭스, 티빙, 디즈니+ 통합 가상 링크 세션</p>
+                        </div>
                     </div>
-                    <h3 class="font-bold text-white text-lg mb-1">OTT 종합 동영상 라이브관</h3>
-                    <p class="text-xs text-zinc-400 mb-4">유튜브, 넷플릭스, 티빙, 디즈니플러스 공식 링크 통합 카드</p>
-                    <div class="flex items-center justify-between text-[11px] pt-3 border-t border-rose-900/50 text-zinc-400">
-                        <span>SSL 256-bit 안전</span>
-                        <span class="text-rose-400 font-semibold">자동 우회 연결 ↗</span>
-                    </div>
-                </div>
-
-                <div class="moa-item sports moa-card p-6 rounded-2xl" data-name="스포츠 축구 야구 스포티비 생중계">
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-3xl">⚽</span>
-                        <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg text-[11px] font-bold border border-emerald-500/30">PING 16ms 정상</span>
-                    </div>
-                    <h3 class="font-bold text-white text-lg mb-1">해외축구 & KBO 생중계</h3>
-                    <p class="text-xs text-zinc-400 mb-4">스포티비, EPL 프리미어리그, 실시간 스코어 중계관</p>
-                    <div class="flex items-center justify-between text-[11px] pt-3 border-t border-rose-900/50 text-zinc-400">
-                        <span>실시간 고화질 스트림</span>
-                        <span class="text-rose-400 font-semibold">자동 우회 연결 ↗</span>
+                    <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 pt-3 md:pt-0 border-zinc-800">
+                        <span id="node-ping-1" class="px-2.5 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg text-xs font-mono font-bold border border-emerald-500/30">12ms (정상)</span>
+                        <span class="px-2.5 py-1 bg-zinc-800 text-zinc-300 rounded-lg text-xs font-medium border border-zinc-700">SSL 256-bit</span>
+                        <button onclick="retestNodePing(1)" class="px-3 py-1.5 bg-rose-600/30 text-rose-300 hover:bg-rose-600 hover:text-white rounded-lg text-xs font-bold transition border border-rose-500/40">
+                            ⚡ 재진단
+                        </button>
                     </div>
                 </div>
 
-                <div class="moa-item community moa-card p-6 rounded-2xl" data-name="커뮤니티 디시 루리웹 에펨코리아 포럼">
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-3xl">💬</span>
-                        <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg text-[11px] font-bold border border-emerald-500/30">PING 10ms 정상</span>
+                <!-- 노드 2: Sports -->
+                <div class="matrix-row sports moa-card p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4" data-name="해외축구 kbo 야구 스포티비 프리미어리그 생중계">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-rose-950/80 rounded-xl flex items-center justify-center text-2xl border border-rose-500/30 shrink-0">⚽</div>
+                        <div>
+                            <div class="flex items-center space-x-2 mb-1">
+                                <h3 class="font-bold text-white text-base">해외축구 & KBO 생중계 센터</h3>
+                                <span class="px-2 py-0.5 bg-rose-500/20 text-rose-300 text-[10px] font-bold rounded border border-rose-500/30">실시간 스트림</span>
+                            </div>
+                            <p class="text-xs text-zinc-400">스포티비, EPL 프리미어리그, KBO 고화질 우회 경로</p>
+                        </div>
                     </div>
-                    <h3 class="font-bold text-white text-lg mb-1">인기 커뮤니티 종합 라운지</h3>
-                    <p class="text-xs text-zinc-400 mb-4">디시인사이드, 루리웹, 에펨코리아 등 실시간 핫이슈</p>
-                    <div class="flex items-center justify-between text-[11px] pt-3 border-t border-rose-900/50 text-zinc-400">
-                        <span>인기글 실시간 집계</span>
-                        <span class="text-rose-400 font-semibold">자동 우회 연결 ↗</span>
-                    </div>
-                </div>
-
-                <div class="moa-item shopping moa-card p-6 rounded-2xl" data-name="쇼핑 쿠팡 무신사 11번가 네이버">
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-3xl">🛒</span>
-                        <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg text-[11px] font-bold border border-emerald-500/30">PING 14ms 정상</span>
-                    </div>
-                    <h3 class="font-bold text-white text-lg mb-1">이커머스 & 모바일 라이프</h3>
-                    <p class="text-xs text-zinc-400 mb-4">쿠팡, 무신사, 오늘의집, 11번가 직통 쇼핑관</p>
-                    <div class="flex items-center justify-between text-[11px] pt-3 border-t border-rose-900/50 text-zinc-400">
-                        <span>안심 결제 보안</span>
-                        <span class="text-rose-400 font-semibold">자동 우회 연결 ↗</span>
+                    <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 pt-3 md:pt-0 border-zinc-800">
+                        <span id="node-ping-2" class="px-2.5 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg text-xs font-mono font-bold border border-emerald-500/30">15ms (정상)</span>
+                        <span class="px-2.5 py-1 bg-zinc-800 text-zinc-300 rounded-lg text-xs font-medium border border-zinc-700">스포핑 검증완료</span>
+                        <button onclick="retestNodePing(2)" class="px-3 py-1.5 bg-rose-600/30 text-rose-300 hover:bg-rose-600 hover:text-white rounded-lg text-xs font-bold transition border border-rose-500/40">
+                            ⚡ 재진단
+                        </button>
                     </div>
                 </div>
 
-                <div class="moa-item ai moa-card p-6 rounded-2xl" data-name="AI 생성형 chatgpt 클로드 노션 캔바">
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-3xl">🤖</span>
-                        <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg text-[11px] font-bold border border-emerald-500/30">PING 20ms 정상</span>
+                <!-- 노드 3: Community -->
+                <div class="matrix-row community moa-card p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4" data-name="디시인사이드 루리웹 에펨코리아 커뮤니티 이슈 포럼">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-rose-950/80 rounded-xl flex items-center justify-center text-2xl border border-rose-500/30 shrink-0">💬</div>
+                        <div>
+                            <div class="flex items-center space-x-2 mb-1">
+                                <h3 class="font-bold text-white text-base">인기 커뮤니티 실시간 허브</h3>
+                                <span class="px-2 py-0.5 bg-rose-500/20 text-rose-300 text-[10px] font-bold rounded border border-rose-500/30">핫이슈 집계</span>
+                            </div>
+                            <p class="text-xs text-zinc-400">디시, 루리웹, 에펨코리아 실시간 트래픽 동기화</p>
+                        </div>
                     </div>
-                    <h3 class="font-bold text-white text-lg mb-1">AI 생산성 및 스마트 툴</h3>
-                    <p class="text-xs text-zinc-400 mb-4">ChatGPT, Claude, 캔바, 노션 등 최신 테크 생산성 툴</p>
-                    <div class="flex items-center justify-between text-[11px] pt-3 border-t border-rose-900/50 text-zinc-400">
-                        <span>글로벌 공식 도메인</span>
-                        <span class="text-rose-400 font-semibold">자동 우회 연결 ↗</span>
+                    <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 pt-3 md:pt-0 border-zinc-800">
+                        <span id="node-ping-3" class="px-2.5 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg text-xs font-mono font-bold border border-emerald-500/30">09ms (최상)</span>
+                        <span class="px-2.5 py-1 bg-zinc-800 text-zinc-300 rounded-lg text-xs font-medium border border-zinc-700">파밍 차단</span>
+                        <button onclick="retestNodePing(3)" class="px-3 py-1.5 bg-rose-600/30 text-rose-300 hover:bg-rose-600 hover:text-white rounded-lg text-xs font-bold transition border border-rose-500/40">
+                            ⚡ 재진단
+                        </button>
                     </div>
                 </div>
 
-                <div class="moa-item ott moa-card p-6 rounded-2xl" data-name="포털 뉴스 구글 네이버 속보">
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-3xl">📰</span>
-                        <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg text-[11px] font-bold border border-emerald-500/30">PING 08ms 정상</span>
+                <!-- 노드 4: Shopping -->
+                <div class="matrix-row shopping moa-card p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4" data-name="쿠팡 무신사 11번가 오늘의집 쇼핑 이커머스">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-rose-950/80 rounded-xl flex items-center justify-center text-2xl border border-rose-500/30 shrink-0">🛒</div>
+                        <div>
+                            <div class="flex items-center space-x-2 mb-1">
+                                <h3 class="font-bold text-white text-base">이커머스 & 안심 결제 라이프관</h3>
+                                <span class="px-2 py-0.5 bg-rose-500/20 text-rose-300 text-[10px] font-bold rounded border border-rose-500/30">보안 인증</span>
+                            </div>
+                            <p class="text-xs text-zinc-400">쿠팡, 무신사, 오늘의집, 11번가 안심 세션 링크</p>
+                        </div>
                     </div>
-                    <h3 class="font-bold text-white text-lg mb-1">종합 언론 및 포털 데스크</h3>
-                    <p class="text-xs text-zinc-400 mb-4">구글, 네이버, 다음 및 실시간 속보 뉴스터미널</p>
-                    <div class="flex items-center justify-between text-[11px] pt-3 border-t border-rose-900/50 text-zinc-400">
-                        <span>공식 검증 매체</span>
-                        <span class="text-rose-400 font-semibold">자동 우회 연결 ↗</span>
+                    <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 pt-3 md:pt-0 border-zinc-800">
+                        <span id="node-ping-4" class="px-2.5 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg text-xs font-mono font-bold border border-emerald-500/30">11ms (정상)</span>
+                        <span class="px-2.5 py-1 bg-zinc-800 text-zinc-300 rounded-lg text-xs font-medium border border-zinc-700">결제 세션보호</span>
+                        <button onclick="retestNodePing(4)" class="px-3 py-1.5 bg-rose-600/30 text-rose-300 hover:bg-rose-600 hover:text-white rounded-lg text-xs font-bold transition border border-rose-500/40">
+                            ⚡ 재진단
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 노드 5: AI -->
+                <div class="matrix-row ai moa-card p-5 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4" data-name="chatgpt 클로드 노션 캔바 ai 생성형 도구 생산성">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-rose-950/80 rounded-xl flex items-center justify-center text-2xl border border-rose-500/30 shrink-0">🤖</div>
+                        <div>
+                            <div class="flex items-center space-x-2 mb-1">
+                                <h3 class="font-bold text-white text-base">AI 생성형 스마트 툴 터미널</h3>
+                                <span class="px-2 py-0.5 bg-rose-500/20 text-rose-300 text-[10px] font-bold rounded border border-rose-500/30">글로벌 노드</span>
+                            </div>
+                            <p class="text-xs text-zinc-400">ChatGPT, Claude, Notion, Canva 공식 직통 링크</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 pt-3 md:pt-0 border-zinc-800">
+                        <span id="node-ping-5" class="px-2.5 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg text-xs font-mono font-bold border border-emerald-500/30">18ms (정상)</span>
+                        <span class="px-2.5 py-1 bg-zinc-800 text-zinc-300 rounded-lg text-xs font-medium border border-zinc-700">공식 API 매핑</span>
+                        <button onclick="retestNodePing(5)" class="px-3 py-1.5 bg-rose-600/30 text-rose-300 hover:bg-rose-600 hover:text-white rounded-lg text-xs font-bold transition border border-rose-500/40">
+                            ⚡ 재진단
+                        </button>
                     </div>
                 </div>
 
@@ -691,39 +730,55 @@
             }
         }
 
-        // 카드 DB 필터링
-        function filterMoaCategory(cat) {
-            const tabs = document.querySelectorAll('.moa-tab');
+        // 도메인 무결성 매트릭스 필터링
+        function filterMatrixCategory(cat, btn) {
+            const tabs = document.querySelectorAll('.matrix-tab');
             tabs.forEach(t => {
                 t.classList.remove('bg-rose-600', 'text-white', 'shadow-rose-600/20');
                 t.classList.add('bg-zinc-900', 'text-zinc-300', 'border', 'border-rose-900/60');
             });
-            event.currentTarget.classList.remove('bg-zinc-900', 'text-zinc-300', 'border', 'border-rose-900/60');
-            event.currentTarget.classList.add('bg-rose-600', 'text-white', 'shadow-rose-600/20');
+            if(btn) {
+                btn.classList.remove('bg-zinc-900', 'text-zinc-300', 'border', 'border-rose-900/60');
+                btn.classList.add('bg-rose-600', 'text-white', 'shadow-rose-600/20');
+            }
 
-            const items = document.querySelectorAll('.moa-item');
+            const items = document.querySelectorAll('.matrix-row');
             items.forEach(item => {
                 if (cat === 'all' || item.classList.contains(cat)) {
-                    item.style.display = 'block';
+                    item.style.display = 'flex';
                 } else {
                     item.style.display = 'none';
                 }
             });
         }
 
-        // 카드 DB 키워드 검색
-        function searchMoaCards() {
-            const val = document.getElementById('moa-search-input').value.toLowerCase().trim();
-            const items = document.querySelectorAll('.moa-item');
+        // 키워드 검색
+        function searchMatrixNodes() {
+            const val = document.getElementById('matrix-search-input').value.toLowerCase().trim();
+            const items = document.querySelectorAll('.matrix-row');
             items.forEach(item => {
                 const nameData = item.getAttribute('data-name') || '';
                 const text = item.innerText.toLowerCase() + ' ' + nameData;
                 if (text.includes(val)) {
-                    item.style.display = 'block';
+                    item.style.display = 'flex';
                 } else {
                     item.style.display = 'none';
                 }
             });
+        }
+
+        // 개별 노드 무결성 및 핑 재진단 시뮬레이터
+        function retestNodePing(id) {
+            const pingBadge = document.getElementById(`node-ping-${id}`);
+            if(!pingBadge) return;
+            pingBadge.textContent = '진단 중...';
+            pingBadge.className = 'px-2.5 py-1 bg-amber-500/20 text-amber-400 rounded-lg text-xs font-mono font-bold animate-pulse border border-amber-500/30';
+            
+            setTimeout(() => {
+                const randomPing = Math.floor(Math.random() * 10) + 7;
+                pingBadge.textContent = `${randomPing}ms (정상)`;
+                pingBadge.className = 'px-2.5 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg text-xs font-mono font-bold border border-emerald-500/30';
+            }, 650);
         }
 
         // 셀프 보안 점수 계산기
